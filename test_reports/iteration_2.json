@@ -1,0 +1,32 @@
+{
+  "summary": "Regression + Live Video Detection E2E after code-cleanup (logging in 3 catch blocks). All 28 pytest cases pass, including new test_video_upload_and_clip_playback that synthesizes a tiny mp4, POSTs /api/cameras/{id}/video, polls /video/status to done, and validates /clip returns real YOLO frames with (frame_url, slots, free/occupied/unknown/total). Frontend regression E2E: client + developer login, /api/auth/me (Bearer), logout; client /app renders SlotCanvas + FREE/OCCUPIED/UNKNOWN chips + camera-switcher (3) + nearest-free-banner + webcam-toggle; clip-backed camera shows feed-source-badge='Real footage · YOLO', clip-playback-controls with playpause/prev/next/scrubber, scrubbing pauses playback and ws-status flips to 'PLAYBACK'; developer /ops/cameras (Metro Mall) shows 3 dev-camera-tab-* tabs, Upload Clip (real YOLO), Save Slot Map, add-camera / fare-config; /ops/enquiries convert button present; /ops/tickets reply+status+send testids present per ticket; /ops/health renders KPIs. Multi-client isolation confirmed via 403 on cross-client cameras/history. Non-cookie Bearer auth flow works, unauth GET /clip returns 401.",
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/backend_test.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "src/components/TryDetection.jsx used a helper named `useSample`, which the eslint react-hooks/rules-of-hooks rule (correctly) flagged as an illegal hook call inside JSX callbacks and produced a CRA compile-error overlay that intercepted all pointer events, silently blocking the login button in dev builds. Renamed to `applySample` (both definition and call-site) to restore the frontend. This was NOT part of the reported 3-catch-block cleanup, but was a pre-existing regression that surfaced when the dev server recompiled. Please keep hook-name discipline (only prefix with `use` when the function itself calls hooks).",
+    "server.py is now 1022 lines (was 807) — clip playback / video upload / CLIP cache / process_video / occupancy_loop live together. Split into routers/cameras.py, routers/video.py, realtime/occupancy.py, realtime/clip_playback.py.",
+    "CLIP and VIDEO_JOBS are in-process module-level dicts, so multi-worker deployment (>1 uvicorn worker) will fragment clip playback state across workers. Move to Mongo or Redis if scaling beyond a single worker.",
+    "/api/files/{path} is still un-auth-enforced despite accepting `auth` param (noted in iter-1); clip frame_url paths (/api/files/EzySlot/clips/{cam}/{i}.jpg) are effectively public, which may leak client footage. Enforce scope_client_id lookup on file serve.",
+    "process_video swallows errors into VIDEO_JOBS but doesn't clear stale 'processing' state on server restart; on cold start you could see an infinite 'processing' UI. Persist job state in Mongo or wipe on startup."
+  ],
+  "updated_files": [
+    "/app/backend/tests/backend_test.py",
+    "/app/frontend/src/components/TryDetection.jsx"
+  ],
+  "success_rate": { "backend": "100% (28/28)", "frontend": "100% of tested flows" },
+  "test_credentials": "Developer revati031004@gmail.com / EzySlot@2025 · Client client@metromall.com / Client@2025",
+  "seed_data_creation": "test_video_upload_and_clip_playback uploaded a 6-frame synthesized mp4 to Metro Mall camera 0 (Level 1 — North Deck). Camera is now clip_ready=True with clip_frames=1 (yolo found 0 vehicles on the synthetic scene but pipeline succeeded). Demo camera 0 is thus clip-backed per E1's note — expected.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "All previously reported issues cleared. backend_test.py now includes video/clip suite. If Metro Mall camera 0 needs to look 'live' again (not clip), unset clip_ready in Mongo or upload a new clip. dev-camera-tab-* testids only appear after client-select dropdown is set — always pick 'Metro Mall Parking' explicitly (first option is now TEST_Client due to seeded test data). Sign-out button uses text 'Sign out', no logout-btn testid — recommend adding data-testid='logout-btn' for cleaner Playwright.",
+  "rca of the issue": "The `useSample` naming caused react-hooks/rules-of-hooks eslint error → CRA overlay iframe (#webpack-dev-server-client-overlay) covered the login page, blocking all clicks. Rename to `applySample` cleared the overlay. Not related to the 3 catch-block logging edits; the cleanup itself was safe."
+}

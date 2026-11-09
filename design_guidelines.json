@@ -1,0 +1,116 @@
+{
+  "project_name": "EzySlot AI — Multi-Client Smart Parking SaaS",
+  "app_type": "hybrid_fullstack",
+  "theme_strategy": {
+    "default_mode": "dark",
+    "style": "Tactical Operations Center & Cyber Command UI",
+    "rationale": "High-density computer vision SaaS monitoring requires zero cognitive distraction, instant color status recognition (Emerald Green = FREE, Crimson Red = OCCUPIED, Amber Yellow = UNKNOWN), and low eye-strain during 24/7 video monitoring."
+  },
+  "typography": {
+    "fonts": {
+      "display_heading": "Barlow Condensed, Outfit, sans-serif",
+      "body": "Plus Jakarta Sans, Inter, sans-serif",
+      "mono_data": "JetBrains Mono, Fira Code, monospace"
+    },
+    "scale": {
+      "h1_hero": "text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight",
+      "h2_section": "text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight",
+      "h3_subsection": "text-xl sm:text-2xl font-semibold tracking-tight",
+      "h4_card_header": "text-lg sm:text-xl font-medium tracking-normal",
+      "body_text": "text-base leading-relaxed text-slate-300",
+      "small_label": "text-xs font-mono uppercase tracking-widest text-slate-400"
+    },
+    "rules": [
+      "NO Inter or generic sans for display headings. Use Barlow Condensed or Outfit with font-bold or font-extrabold.",
+      "All numerical telemetry, confidence scores, slot IDs, timestamp tags, and fare numbers MUST use JetBrains Mono / font-mono.",
+      "Never exceed text-6xl for hero headings."
+    ]
+  },
+  "colors": {
+    "palette": {
+      "background_deep": "#07090E",
+      "background_card": "#0F1420",
+      "background_card_hover": "#161F33",
+      "surface_border": "#1E293B",
+      "primary_accent": "#38BDF8",
+      "status_free": "#10B981",
+      "status_occupied": "#EF4444",
+      "status_unknown": "#F59E0B",
+      "ai_detection_cyan": "#06B6D4",
+      "text_primary": "#F8FAFC",
+      "text_secondary": "#94A3B8",
+      "text_muted": "#64748B"
+    },
+    "contrast_and_accessibility": {
+      "min_contrast_normal": "4.5:1",
+      "min_contrast_large": "3:1",
+      "hover_rule": "Always explicitly set hover text color alongside background hover (e.g., hover:bg-slate-800 hover:text-white).",
+      "interactive_cta": "Use primary cyan/sky accent for active CTAs. Status colors (Green/Red/Amber) are reserved strictly for occupancy and system health."
+    }
+  },
+  "visual_enhancers": {
+    "glassmorphism": "backdrop-blur-xl bg-slate-900/80 border border-slate-800/80 shadow-2xl",
+    "tracing_beam": "1px gradient border highlight (from cyan-500/50 via-slate-700/30 to-transparent) on active camera feeds or hero upload zone",
+    "tactical_badges": "Inline monospace status chips with subtle glow (e.g. shadow-[0_0_12px_rgba(16,185,129,0.3)])",
+    "textures": "Subtle dark grid scanline overlay on canvas viewer and hero demo container"
+  },
+  "spacing_and_layout": {
+    "generous_spacing": "Use p-6 or p-8 inside bordered panels to eliminate visual crowding.",
+    "bento_grid_marketing": "Base grid grid-cols-1 md:grid-cols-12 gap-8 with hero grid-span-8 and key feature blocks grid-span-4.",
+    "dashboard_grid": "Grid grid-cols-1 lg:grid-cols-12 gap-6 with Dominant Video Feed taking lg:col-span-8 and Camera Switcher / Stats taking lg:col-span-4.",
+    "mobile_constraints": "Max image/video canvas height on mobile max-h-[70vh] with overflow scroll options."
+  },
+  "component_guidelines": {
+    "public_landing": {
+      "hero": "Dynamic headline, CTA buttons, interactive Try Detection widget (drag-and-drop sample parking images or file upload -> YOLOv8 bounding box & slot status canvas preview).",
+      "service_enquiry": "Multi-step or clean form with enterprise inputs, site location dropdown, camera count slider, and submit state."
+    },
+    "client_portal": {
+      "live_monitoring": "Single dominant video/webcam viewer with live HTML5 Canvas overlay for developer-drawn slot polygons (GREEN polygon for FREE, RED polygon for OCCUPIED, AMBER polygon for UNKNOWN). Floating status bar displaying occupancy counts, nearest free slot notification banner (WebSocket pushed), and camera switcher panel.",
+      "history_timeline": "Activity logs with time filters, vehicle detection events, occupancy trend charts (Recharts / Shadcn charts), and export options.",
+      "support_tickets": "Interactive ticket list + creation modal with status badges (OPEN, IN_PROGRESS, RESOLVED).",
+      "service_validity": "Subscription status card with expiration date counter, fare rate table, and renewal CTA."
+    },
+    "developer_operations_center": {
+      "overview": "Command Center dashboard with system health gauge, active client count, YOLO inference latency, live camera stream status, and quick action bar.",
+      "client_management": "Client list table, onboarding modal, service duration updater, and isolated API token viewer.",
+      "enquiries_inbox": "Inbound service enquiries inbox with 'Convert to Client' 1-click action.",
+      "polygon_editor": "Developer Slot Mapping Canvas Tool — Upload camera snapshot/stream, draw polygon nodes for parking slots, label slot ID (e.g. A-1, A-2), save slot map JSON to backend.",
+      "fare_and_tickets": "Fare configuration manager and developer support ticket resolution interface."
+    }
+  },
+  "motion_and_interactions": {
+    "animations": "Framer Motion page transitions, smooth slot overlay pulse on state change, camera switcher cross-fade.",
+    "micro_interactions": "Hover scale-102 on interactive cards, active tab glowing indicator, loading skeleton shimmers.",
+    "accessibility": "Respect prefers-reduced-motion; decorative canvas items marked aria-hidden='true'."
+  },
+  "media_and_images": {
+    "image_urls": {
+      "hero_surveillance_camera": "https://images.pexels.com/photos/30546990/pexels-photo-30546990.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "camera_pole_solar": "https://images.pexels.com/photos/37549154/pexels-photo-37549154.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "parking_lot_topdown_1": "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MTJ8MHwxfHNlYXJjaHwxfHxhZXJpYWwlMjBwYXJraW5nJTIwbG90JTIwY2FycyUyMHRvcCUyMHZpZXclMjBvdmVyaGVhZHxlbnwwfHx8fDE3OTAwMDk2Mjl8MA&ixlib=rb-4.1.0&q=85",
+      "parking_lot_topdown_2": "https://images.unsplash.com/photo-1593280405106-e438ebe93f5b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MTJ8MHwxfHNlYXJjaHwyfHxhZXJpYWwlMjBwYXJraW5nJTIwbG90JTIwY2FycyUyMHRvcCUyMHZpZXclMjBvdmVyaGVhZHxlbnwwfHx8fDE3OTAwMDk2Mjl8MA&ixlib=rb-4.1.0&q=85",
+      "parking_lot_drone": "https://images.pexels.com/photos/15984741/pexels-photo-15984741.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    },
+    "usage_instructions": "Use real image URLs above for landing hero background, sample detection presets in the Try Detection widget, and default camera stream snapshot backgrounds."
+  },
+  "testing_and_qa_requirements": {
+    "data_testid_convention": "All interactive elements, buttons, tabs, camera items, slot chips, form inputs, modals, and status indicators MUST include explicit kebab-case data-testid attributes.",
+    "examples": [
+      "data-testid='try-detection-upload-input'",
+      "data-testid='camera-switcher-btn-cam1'",
+      "data-testid='slot-polygon-canvas'",
+      "data-testid='free-slots-count-chip'",
+      "data-testid='nearest-free-slot-banner'",
+      "data-testid='developer-convert-client-btn'",
+      "data-testid='save-polygon-mapping-btn'"
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Strictly follow the tactical dark mode aesthetic (#07090E bg, #0F1420 card bg).",
+    "Ensure both Client Live Monitoring and Developer Operations Center feel rich, dynamic, and production-ready with full WebSocket live updating mock / real integration.",
+    "Implement the Polygon Slot Drawing Canvas in the Developer view allowing polygon node additions, clearing, slot naming, and saving.",
+    "Ensure the Public 'Try Detection' upload widget works flawlessly with instant YOLO detection response and bounding box / slot status drawing.",
+    "Include data-testid on every interactive button, input, tab, card, and modal."
+  ]
+}

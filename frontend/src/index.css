@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --background: 0 0% 100%;
+  --foreground: 222 47% 11%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 47% 11%;
+  --primary: 18 100% 56%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 30 100% 96%;
+  --secondary-foreground: 222 47% 11%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215 16% 42%;
+  --accent: 24 100% 94%;
+  --accent-foreground: 18 90% 40%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 214 32% 88%;
+  --input: 214 32% 88%;
+  --ring: 18 100% 56%;
+  --radius: 0.75rem;
+  --chart-1: 18 100% 56%;
+  --chart-2: 160 65% 39%;
+  --chart-3: 0 72% 51%;
+  --chart-4: 38 92% 50%;
+  --chart-5: 222 47% 30%;
+
+  --brand-orange: #ff5a1f;
+  --brand-orange-hover: #e94a12;
+  --brand-cream: #fff3e8;
+  --brand-ink: #1e293b;
+  --brand-muted: #64748b;
+  --brand-border: #e2e8f0;
+  --brand-surface: #f8fafc;
+}
+
+* { box-sizing: border-box; border-color: hsl(var(--border)); }
+html { min-height: 100%; background: #fff; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #fff;
+  color: #1e293b;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button, input, select, textarea { font: inherit; }
+button { -webkit-tap-highlight-color: transparent; }
+a { color: inherit; }
+
+.font-display { font-family: 'Barlow Condensed', 'Plus Jakarta Sans', sans-serif; }
+.font-mono-data { font-family: 'JetBrains Mono', monospace; }
+
+::selection { background: #ffb18f; color: #431407; }
+
+/* Shared light theme surfaces */
+.glass {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 10px 30px rgba(30, 41, 59, 0.06);
+}
+.grid-bg {
+  background-image: linear-gradient(rgba(255, 90, 31, 0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 90, 31, 0.055) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.scanlines::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  background-image: repeating-linear-gradient(0deg, rgba(255, 90, 31, 0.025) 0px, rgba(255, 90, 31, 0.025) 1px, transparent 1px, transparent 4px);
+}
+
+/* Keep operational states semantically distinct from the brand color. */
+.glow-free { box-shadow: 0 0 14px rgba(16, 185, 129, 0.16); }
+.glow-occ { box-shadow: 0 0 14px rgba(239, 68, 68, 0.16); }
+.glow-unk { box-shadow: 0 0 14px rgba(245, 158, 11, 0.18); }
+.glow-accent { box-shadow: 0 0 22px rgba(255, 90, 31, 0.18); }
+
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 99px; border: 2px solid #f1f5f9; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+@keyframes pulse-ring { 0% { opacity: 0.9; } 50% { opacity: 0.45; } 100% { opacity: 0.9; } }
+.animate-pulse-ring { animation: pulse-ring 2s ease-in-out infinite; }
+
+/* Generic controls used by pages that don't define their own component styles. */
+input, select, textarea {
+  color: #1e293b;
+  background-color: #fff;
+  border-color: #cbd5e1;
+}
+input::placeholder, textarea::placeholder { color: #94a3b8; }
+:focus-visible { outline: 2px solid #ff5a1f; outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+
+
+/* =========================================================
+   EZYSLOT GLOBAL LIGHT THEME
+   Scoped to authenticated portals so camera/video overlays
+   and detection canvases keep their intended appearance.
+   ========================================================= */
+.portal-theme {
+  background: #f8fafc !important;
+  color: #1e293b !important;
+  color-scheme: light;
+}
+.portal-theme [class~="bg-sp-bg"] { background-color: #ffffff !important; }
+.portal-theme [class~="text-sp-text"] { color: #1e293b !important; }
+.portal-theme [class~="bg-sp-card/60"],
+.portal-theme [class~="bg-sp-card/40"],
+.portal-theme [class~="bg-sp-card"],
+.portal-theme [class~="bg-sp-cardh/60"],
+.portal-theme [class~="bg-sp-cardh"] {
+  background-color: #ffffff !important;
+}
+.portal-theme [class~="border-sp-border"],
+.portal-theme [class~="border-slate-800"],
+.portal-theme [class~="border-slate-700/70"],
+.portal-theme [class~="border-slate-700"] {
+  border-color: #e2e8f0 !important;
+}
+.portal-theme [class~="bg-slate-950"],
+.portal-theme [class~="bg-slate-950/90"],
+.portal-theme [class~="bg-slate-900"],
+.portal-theme [class~="bg-slate-900/70"],
+.portal-theme [class~="bg-slate-900/60"],
+.portal-theme [class~="bg-slate-900/50"],
+.portal-theme [class~="bg-slate-800"],
+.portal-theme [class~="bg-slate-800/80"],
+.portal-theme [class~="bg-slate-800/60"],
+.portal-theme [class~="bg-slate-800/50"] {
+  background-color: #ffffff !important;
+}
+.portal-theme [class~="text-white"],
+.portal-theme [class~="text-slate-100"],
+.portal-theme [class~="text-slate-200"] {
+  color: #1e293b !important;
+}
+.portal-theme [class~="text-slate-300"] { color: #334155 !important; }
+.portal-theme [class~="text-slate-400"] { color: #64748b !important; }
+.portal-theme [class~="text-slate-500"] { color: #64748b !important; }
+.portal-theme [class~="hover:bg-sp-cardh"]:hover,
+.portal-theme [class~="hover:bg-slate-800"]:hover,
+.portal-theme [class~="hover:bg-slate-700"]:hover {
+  background-color: #fff3e8 !important;
+}
+.portal-theme [class~="hover:text-white"]:hover { color: #c2410c !important; }
+.portal-theme [class~="text-sp-sub"] { color: #64748b !important; }
+.portal-theme [class~="text-sp-muted"] { color: #64748b !important; }
+.portal-theme [class~="text-sp-accent"] { color: #ea580c !important; }
+.portal-theme [class~="bg-sp-accent"],
+.portal-theme [class~="bg-sp-accent/15"],
+.portal-theme [class~="bg-sp-accent/10"] {
+  background-color: #fff0e6 !important;
+}
+.portal-theme [class~="bg-sp-accent"]:not([class~="bg-sp-accent/15"]):not([class~="bg-sp-accent/10"]) {
+  background-color: #f97316 !important;
+  color: #ffffff !important;
+}
+.portal-theme [class~="border-sp-accent"],
+.portal-theme [class~="border-sp-accent/40"] { border-color: #fdba74 !important; }
+.portal-theme [class~="text-sky-400"],
+.portal-theme [class~="text-sky-300"],
+.portal-theme [class~="text-cyan-400"] { color: #ea580c !important; }
+.portal-theme [class~="border-sky-500/30"],
+.portal-theme [class~="border-sky-400/30"] { border-color: #fdba74 !important; }
+.portal-theme [class~="bg-sky-500/10"],
+.portal-theme [class~="bg-sky-400/10"] { background-color: #fff3e8 !important; }
+.portal-theme [class~="bg-gradient-to-r"] { filter: saturate(.9); }
+.portal-theme input,
+.portal-theme select,
+.portal-theme textarea {
+  background-color: #ffffff !important;
+  color: #1e293b !important;
+  border-color: #cbd5e1 !important;
+}
+.portal-theme input::placeholder,
+.portal-theme textarea::placeholder { color: #94a3b8 !important; }
+.portal-theme [class~="shadow-xl"] { --tw-shadow-color: rgba(30,41,59,.06) !important; }
+.portal-theme [class~="bg-slate-800"] { background-color: #f1f5f9 !important; }
+
+/* White-and-orange public pages and portal surfaces */
+body { background: #ffffff; color: #1e293b; }
